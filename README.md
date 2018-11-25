@@ -12,7 +12,7 @@
 
 `ios`：iOS工程的目录
 
-`lib` Flutter工程的目录
+`lib`： Flutter工程的目录
 
 其中android、ios下的文件我们都不动，我们只改动lib目录下的dart文件。
 
@@ -38,7 +38,7 @@ https://free-api.heweather.com/s6/weather/now?location=广州&key=******
 
 在创建的工程里，有个`main.dart`里面有一段显示界面的代码如下:
 
-```
+```dart
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -194,7 +194,7 @@ dependencies:
 
 然后在当前工程目录下运行以下命令行：
 
-```
+```shell
 $ flutter packages get
 ```
 
@@ -270,7 +270,7 @@ class WeatherState extends State<WeatherWidget>{
 
 ### 4.3 将之前写死的数据换成WeatherData
 
-```
+```dart
 				...                
                 child: new Column(
                   children: <Widget>[
