@@ -16,11 +16,15 @@
 
 其中android、ios下的文件我们都不动，我们只改动lib目录下的dart文件。
 
+## 2.运行Flutter工程
 
+1. 连接手机
 
-然后按`Run` 在手机上把程序跑起来。
+* 这里不建议用模拟器，因为模拟器在用GPU渲染时可能会出问题，导致图片渲染不出来。
 
-## 2.天气API接口申请
+2. 然后按`Run` 在手机上把程序跑起来。
+
+## 3.天气API接口申请
 
 注册地址[https://console.heweather.com/register](https://console.heweather.com/register) 
 
@@ -34,7 +38,7 @@ demo这里用的是，获取当天天气情况的API：[https://www.heweather.co
 https://free-api.heweather.com/s6/weather/now?location=广州&key=******
 ```
 
-## 3.界面编写
+## 4.界面编写
 
 在创建的工程里，有个`main.dart`里面有一段显示界面的代码如下:
 
@@ -66,7 +70,7 @@ class MyApp extends StatelessWidget {
 
 
 
-### 3.1 创建WeatherWidget
+### 4.1 创建WeatherWidget
 
 通过 `new` -> `Dart File` 在lib目录下创建WeatherWidget
 
@@ -105,10 +109,48 @@ class MyApp extends StatelessWidget {
     );
   }
 ```
-
+### 4.2 HotReload
 在写UI的工程中，我们可以用到Flutter的hot reload的特性,写布局的时候，按`ctrl+s`或`cmd+s`就可以在手机上实时看到界面的变化。
 
-### 3.2 写WeatherWidget的UI布局
+这个功能很好用。
+
+### 4.3添加图片资源
+
+Flutter可以添加不同的资源，例如图片、文本、配置文件、静态数据等。
+
+添加资源时,需要在`pubspec.yaml`文件中的`flutter`属性下添加`assets`,并标明要添加资源的路径，例如，我们要加入指定的图片时，可以这么写：
+
+```yaml
+flutter:
+  assets:
+    - assets/my_icon.png
+    - assets/background.png
+```
+
+如果要添加的资源太多，也可以添加文件夹，例如:
+
+```yaml
+flutter:
+  assets:
+    - assets/
+```
+
+在本demo中，要添加一个背景图，我们在工程的根目录下创建`images`目录，将背景图放在`images`目录下，然后在`pubspec.yaml`中添加:
+
+```yaml
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+  assets:
+    - images/
+```
+
+
+
+### 4.4 写WeatherWidget的UI布局
 
 在`Scaffold`中添加`body`的属性，来写UI的布局，如下：
 
@@ -177,7 +219,7 @@ class WeatherState extends State<WeatherWidget>{
 
 按`ctrl+s`，在手机上就可以看到写好的UI，但这时候的数据是写死的，下来看如何通过http获取数据。
 
-## 4.通过http获取数据
+## 5.通过http获取数据
 
 要通过http数据，我们首先要添加http的依赖库，在`pubspec.yaml`中的`dependencies`添加如下:
 
@@ -202,7 +244,7 @@ $ flutter packages get
 
 这里操作的意义是，拉取http的库。
 
-### 4.1 创建WeatherData类
+### 5.1 创建WeatherData类
 
 通过 `new` -> `Dart File` 在lib目录下创建WeatherData
 
@@ -232,7 +274,7 @@ class WeatherData{
 }
 ```
 
-### 4.2 数据获取
+### 5.2 数据获取
 
 ```dart
 class WeatherState extends State<WeatherWidget>{
@@ -268,7 +310,7 @@ class WeatherState extends State<WeatherWidget>{
 }  
 ```
 
-### 4.3 将之前写死的数据换成WeatherData
+### 5.3 将之前写死的数据换成WeatherData
 
 ```dart
 				...                
