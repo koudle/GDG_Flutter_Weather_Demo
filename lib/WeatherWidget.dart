@@ -48,13 +48,7 @@ class WeatherState extends State<WeatherWidget>{
       body: new Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          new DecoratedBox(
-              decoration: new BoxDecoration(
-                image: new DecorationImage(
-                    image: new AssetImage('images/weather_bg.jpg')
-                )
-              )
-          ),
+          new Image.asset("images/weather_bg.jpg",fit: BoxFit.fitHeight,),
           new Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
