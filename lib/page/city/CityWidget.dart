@@ -29,18 +29,19 @@ class CityState extends State<CityWidget>{
     });
   }
 
+  //拉取城市列表
   Future<List<CityData>> _fetchCityList() async{
     final response = await http.get('https://search.heweather.net/top?group=cn&key=ebb698e9bb6844199e6fd23cbb9a77c5');
 
     List<CityData> cityList = new List<CityData>();
 
     if(response.statusCode == 200){
+      //解析数据
       Map<String,dynamic> result = json.decode(response.body);
       for(dynamic data in result['HeWeather6'][0]['basic']){
         CityData cityData = CityData(data['location']);
         cityList.add(cityData);
       }
-
       return cityList;
     }else{
       return cityList;
