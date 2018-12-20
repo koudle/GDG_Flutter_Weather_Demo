@@ -2,24 +2,30 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gdg_weather/WeatherData.dart';
+import 'package:gdg_weather/page/weather/WeatherData.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherWidget extends StatefulWidget{
+  String cityName;
+
+  WeatherWidget(this.cityName);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return new WeatherState();
+    return new WeatherState(this.cityName);
   }
 
 }
 
 class WeatherState extends State<WeatherWidget>{
 
+  String cityName;
+
   WeatherData weather = WeatherData.empty();
 
-  WeatherState(){
+  WeatherState(String cityName){
+    this.cityName = cityName;
     _getWeather();
   }
 
@@ -31,7 +37,7 @@ class WeatherState extends State<WeatherWidget>{
   }
 
   Future<WeatherData> _fetchWeather() async{
-    final response = await http.get('https://free-api.heweather.com/s6/weather/now?location=广州&key=ebb698e9bb6844199e6fd23cbb9a77c5');
+    final response = await http.get('https://free-api.heweather.com/s6/weather/now?location='+this.cityName+'&key=ebb698e9bb6844199e6fd23cbb9a77c5');
     if(response.statusCode == 200){
       return WeatherData.fromJson(json.decode(response.body));
     }else{
@@ -45,19 +51,19 @@ class WeatherState extends State<WeatherWidget>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: new Stack(
+      body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          new Image.asset("images/weather_bg.jpg",fit: BoxFit.fitHeight,),
-          new Column(
+          Image.asset("images/weather_bg.jpg",fit: BoxFit.fitHeight,),
+          Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              new Container(
+              Container(
                 width: double.infinity,
                 margin: EdgeInsets.only(top: 40.0),
                 child: new Text(
-                  "广州市",
+                  this.cityName,
                   textAlign: TextAlign.center,
                   style: new TextStyle(
                     color: Colors.white,
@@ -65,24 +71,24 @@ class WeatherState extends State<WeatherWidget>{
                   ),
                 ),
               ),
-              new Container(
+              Container(
                 width: double.infinity,
                 margin: EdgeInsets.only(top: 100.0),
-                child: new Column(
+                child: Column(
                   children: <Widget>[
-                    new Text(
+                    Text(
                         weather?.tmp,
                         style: new TextStyle(
                             color: Colors.white,
                             fontSize: 80.0
                         )),
-                    new Text(
+                    Text(
                         weather?.cond,
                         style: new TextStyle(
                             color: Colors.white,
                             fontSize: 45.0
                         )),
-                    new Text(
+                    Text(
                       weather?.hum,
                       style: new TextStyle(
                           color: Colors.white,

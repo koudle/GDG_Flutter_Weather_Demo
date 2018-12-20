@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:gdg_weather/WeatherWidget.dart';
+import 'package:gdg_weather/page/city/CityWidget.dart';
+import 'package:gdg_weather/page/weather/WeatherWidget.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,7 +23,9 @@ class MyApp extends StatelessWidget {
         // counter didn't reset back to zero; the application is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: WeatherWidget(),
+      home: Scaffold(
+        body: CityWidget(),
+      ),
     );
   }
 }
