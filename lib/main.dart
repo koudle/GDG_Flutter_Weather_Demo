@@ -23,6 +23,7 @@ void _setTargetPlatformForDesktop() {
   if (targetPlatform != null) {
     debugDefaultTargetPlatformOverride = targetPlatform;
   }
+
 }
 
 class MyApp extends StatelessWidget {
