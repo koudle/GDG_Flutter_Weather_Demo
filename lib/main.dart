@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gdg_weather/page/city/CityWidget.dart';
+import 'package:gdg_weather/page/state/WeatherController.dart';
 import 'package:gdg_weather/page/weather/WeatherWidget.dart';
 
 void main(){
   _setTargetPlatformForDesktop();
-  runApp(MyApp());
+  runApp(WeatherControllerWidget(child: MyApp()));
 }
 
 /// If the current platform is desktop, override the default platform to
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        body: CityWidget(),
+        body: CityWidget()
       ),
     );
   }

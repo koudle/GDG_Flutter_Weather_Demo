@@ -2,54 +2,32 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gdg_weather/page/state/WeatherController.dart';
 import 'package:gdg_weather/page/weather/WeatherData.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherWidget extends StatefulWidget{
-  String cityName;
 
-  WeatherWidget(this.cityName);
+  WeatherWidget();
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return new WeatherState(this.cityName);
+    return new WeatherState();
   }
 
 }
 
 class WeatherState extends State<WeatherWidget>{
 
-  String cityName;
-
-  WeatherData weather = WeatherData.empty();
-
-  WeatherState(String cityName){
-    this.cityName = cityName;
-    _getWeather();
+  WeatherState(){
   }
-
-  void _getWeather() async{
-    WeatherData data = await _fetchWeather();
-    setState((){
-      weather = data;
-    });
-  }
-
-  Future<WeatherData> _fetchWeather() async{
-    final response = await http.get('https://free-api.heweather.com/s6/weather/now?location='+this.cityName+'&key=ebb698e9bb6844199e6fd23cbb9a77c5');
-    if(response.statusCode == 200){
-      return WeatherData.fromJson(json.decode(response.body));
-    }else{
-      return WeatherData.empty();
-    }
-  }
-
-
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    final weatherState = WeatherControllerWidget.of(context);
+    weatherState.getCityWeather();
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -63,7 +41,7 @@ class WeatherState extends State<WeatherWidget>{
                 width: double.infinity,
                 margin: EdgeInsets.only(top: 40.0),
                 child: new Text(
-                  this.cityName,
+                  weatherState.curCityName,
                   textAlign: TextAlign.center,
                   style: new TextStyle(
                     color: Colors.white,
@@ -77,19 +55,19 @@ class WeatherState extends State<WeatherWidget>{
                 child: Column(
                   children: <Widget>[
                     Text(
-                        weather?.tmp,
+                        weatherState.weather?.tmp,
                         style: new TextStyle(
                             color: Colors.white,
                             fontSize: 80.0
                         )),
                     Text(
-                        weather?.cond,
+                        weatherState.weather?.cond,
                         style: new TextStyle(
                             color: Colors.white,
                             fontSize: 45.0
                         )),
                     Text(
-                      weather?.hum,
+                      weatherState.weather?.hum,
                       style: new TextStyle(
                           color: Colors.white,
                           fontSize: 30.0
