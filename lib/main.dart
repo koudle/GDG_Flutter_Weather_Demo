@@ -7,7 +7,17 @@ import 'package:gdg_weather/page/weather/WeatherWidget.dart';
 
 void main(){
   _setTargetPlatformForDesktop();
+  setCustomErrorPage();
   runApp(MyApp());
+}
+
+void setCustomErrorPage(){
+    ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails){
+      print(flutterErrorDetails.toString());
+      return Center(
+        child: Text("Flutter 走神了"),
+      );
+    };
 }
 
 /// If the current platform is desktop, override the default platform to
@@ -28,8 +38,14 @@ void _setTargetPlatformForDesktop() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  
+  MyApp(){
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
