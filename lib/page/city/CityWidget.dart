@@ -23,7 +23,6 @@ class CityState extends State<CityWidget>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    context.inheritFromWidgetOfExactType(targetType)
     final weatherState = WeatherControllerWidget.of(context);
     weatherState.getCityList();
     return ListView.builder(
