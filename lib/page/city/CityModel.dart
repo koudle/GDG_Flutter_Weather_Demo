@@ -11,13 +11,30 @@ class CityModel extends Model{
   List<CityData> cityList = new List<CityData>();
 
   CityModel(){
+    print(this.toString());
+  }
+  
+  @override
+  void addListener(VoidCallback listener) {
+    super.addListener(listener);
+    print("addListener");
+    getCityList();
+  }
 
+  @override
+  void removeListener(VoidCallback listener) {
+    print("removeListener");
+    super.removeListener(listener);
+
+    print("city length:"+cityList.length.toString());
   }
   
   static CityModel of(BuildContext context) => ScopedModel.of<CityModel>(context,rebuildOnChange: true);
 
   //获取城市列表的方法
   void getCityList() async {
+    print("getCityList");
+
     final response = await http.get('https://search.heweather.net/top?group=cn&key=ebb698e9bb6844199e6fd23cbb9a77c5');
 
     List<CityData> list = new List<CityData>();

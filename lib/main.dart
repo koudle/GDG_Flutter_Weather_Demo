@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gdg_weather/page/city/CityModel.dart';
 import 'package:gdg_weather/page/city/CityWidget.dart';
 import 'package:gdg_weather/page/weather/WeatherWidget.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 void main(){
   _setTargetPlatformForDesktop();
@@ -44,7 +46,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        body: CityWidget(),
+        body: ScopedModel<CityModel>(
+          model: CityModel(),
+          child: CityWidget(),
+        )
       ),
     );
   }

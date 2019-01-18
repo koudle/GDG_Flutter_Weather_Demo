@@ -6,11 +6,15 @@ class WeatherData{
   WeatherData({this.cond, this.tmp, this.hum});
 
   factory WeatherData.fromJson(Map<String, dynamic> json) {
-    return WeatherData(
-      cond: json['HeWeather6'][0]['now']['cond_txt'],
-      tmp: json['HeWeather6'][0]['now']['tmp']+"°",
-      hum: "湿度  "+json['HeWeather6'][0]['now']['hum']+"%",
-    );
+    try{
+      return WeatherData(
+        cond: json['HeWeather6'][0]['now']['cond_txt'],
+        tmp: json['HeWeather6'][0]['now']['tmp']+"°",
+        hum: "湿度  "+json['HeWeather6'][0]['now']['hum']+"%",
+      );
+    }catch(e){
+      return WeatherData.empty();
+    }
   }
 
   factory WeatherData.empty() {

@@ -6,7 +6,7 @@ import 'package:gdg_weather/page/weather/WeatherData.dart';
 import 'package:gdg_weather/page/weather/WeatherModel.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class WeatherWidget extends StatefulWidget{
+class WeatherWidget extends StatefulWidget {
   String cityName;
 
   WeatherWidget(this.cityName);
@@ -16,19 +16,14 @@ class WeatherWidget extends StatefulWidget{
     // TODO: implement createState
     return new WeatherState(this.cityName);
   }
-
 }
 
-class WeatherState extends State<WeatherWidget>{
-
+class WeatherState extends State<WeatherWidget> {
   String cityName;
 
-
-  WeatherState(String cityName){
+  WeatherState(String cityName) {
     this.cityName = cityName;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +32,10 @@ class WeatherState extends State<WeatherWidget>{
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Image.asset("images/weather_bg.jpg",fit: BoxFit.fitHeight,),
+          Image.asset(
+            "images/weather_bg.jpg",
+            fit: BoxFit.fitHeight,
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,39 +55,25 @@ class WeatherState extends State<WeatherWidget>{
               Container(
                 width: double.infinity,
                 margin: EdgeInsets.only(top: 100.0),
-                child: ScopedModel<WeatherModel>(
-                  model: WeatherModel(),
-                  child: ScopedModelDescendant<WeatherModel>(
-                    builder: (context,child,model){
-                      model.fetchWeather(this.cityName);
-                      return Column(
-                              children: <Widget>[
-                                Text(
-                                  model.weather?.tmp,
-                                  style: new TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 80.0
-                                  )
-                                ),
-                                Text(
-                                  model.weather?.cond,
-                                  style: new TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 45.0
-                                  )
-                                ),
-                                Text(
-                                  model.weather?.hum,
-                                  style: new TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 30.0
-                                  ),
-                                )
-                              ],
-                            );
-                    },
-                  ),
-                )
+                child: ScopedModelDescendant<WeatherModel>(
+                  builder: (context, child, model) {
+                    return Column(
+                      children: <Widget>[
+                        Text(model.weather?.tmp,
+                            style: new TextStyle(
+                                color: Colors.white, fontSize: 80.0)),
+                        Text(model.weather?.cond,
+                            style: new TextStyle(
+                                color: Colors.white, fontSize: 45.0)),
+                        Text(
+                          model.weather?.hum,
+                          style: new TextStyle(
+                              color: Colors.white, fontSize: 30.0),
+                        )
+                      ],
+                    );
+                  },
+                ),
               )
             ],
           )
@@ -97,5 +81,4 @@ class WeatherState extends State<WeatherWidget>{
       ),
     );
   }
-
 }
